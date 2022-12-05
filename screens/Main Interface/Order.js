@@ -18,17 +18,18 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Geocoder from 'react-native-geocoding';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { createRequest } from '../../services/request';
 
 const OrderScreen = () => {
   //const [requestData, setRequestData] = useState({});
   const [heightDimension, setHeightDimension] = useState({
     OrderNo: '77%',
   }); //auto update the height of text input
-  const [text, onChangeText] = React.useState('');
+  const [text, onChangeText] = React.useState(text);
 
   // for Collection Location dropdown list
   const [openCollectionLocation, setOpenCollectionLocation] = useState(false);
-  const [valueCollectionLocation, setValueCollectionLocation] = useState(null);
+  const [valueCollectionLocation, setValueCollectionLocation] = useState(valueCollectionLocation);
   const [itemsCollectionLocation, setItemsCollectionLocation] = useState([
     { label: 'PGP', value: 'PGP' },
     { label: 'Frontier (non AC)', value: 'Frontier (non AC)' },
@@ -40,7 +41,7 @@ const OrderScreen = () => {
 
   // for Delivery Location dropdown list
   const [openDeliveryLocation, setOpenDeliveryLocation] = useState(false);
-  const [valueDeliveryLocation, setValueDeliveryLocation] = useState(null);
+  const [valueDeliveryLocation, setValueDeliveryLocation] = useState(valueDeliveryLocation);
   const [itemsDeliveryLocation, setItemsDeliveryLocation] = useState([
     { label: 'KE7 foyer', value: 'KE7 foyer' },
     { label: 'PGP bus stop', value: 'PGP bus stop' },
@@ -178,7 +179,10 @@ const OrderScreen = () => {
 
       <View style={styles.buttons}>
         <Button
-          onPress={() => Alert.alert('Order successful')}
+          onPress={ async () => {
+            await createRequest(text, valueCollectionLocation, valueDeliveryLocation)
+            Alert.alert('Order successful')
+          }}
           title="Submit Order"
           color="#11CC28"
           accessibilityLabel="Learn more about this purple button"
