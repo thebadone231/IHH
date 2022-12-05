@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeStackScreen from '../Stack Navigation/HomeStackScreen';
 import ActivityStackScreen from '../Stack Navigation/ActivityStackScreen';
 import RequestStackScreen from '../Stack Navigation/RequestStackScreen';
-import ProfileStackScreen from '../Stack Navigation/ProfileStackScreen';
+import FulfillStackScreen from '../Stack Navigation/FulfillStackScreen';
 import FAQStackScreen from '../Stack Navigation/FAQStackScreen';
 
 const Tab = createBottomTabNavigator();
@@ -15,7 +15,7 @@ const TAB_ICON = {
   Home: 'md-home',
   Activity: 'md-time',
   Request: 'md-add',
-  Profile: 'md-person',
+  Fulfill: 'md-person',
   FAQ: 'md-help',
 };
 
@@ -55,8 +55,8 @@ export const TabNavigator = () => (
     />
     <Tab.Screen
       options={{ headerShown: false }}
-      name="Profile"
-      component={ProfileStackScreen}
+      name="Fulfill"
+      component={FulfillStackScreen}
     />
     <Tab.Screen
       options={{ headerShown: false }}
