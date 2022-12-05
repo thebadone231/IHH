@@ -22,65 +22,63 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const FulfillScreen = () => {
   return (
-    <SafeArea>
-      <View style={styles.container}>
-        <View style={styles.categorycontainer}>
-          <View style={styles.categoryrowcontainer}>
-            <View style={styles.subcategorycontainer}>
-              <TouchableOpacity
-                style={styles.categorybutton}
-                onPress={() => {
-                  console.log('Pending Orders button pressed!');
-                }}
-              >
-                <Text style={{ fontSize: 17, fontWeight: '500' }}>
-                  Pending Orders
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.subcategorycontainer}>
-              <TouchableOpacity
-                style={styles.categorybutton}
-                onPress={() => {
-                  console.log('Pending Orders button pressed!');
-                }}
-              >
-                <Text style={{ fontSize: 17, fontWeight: '500' }}>Filter</Text>
-              </TouchableOpacity>
-            </View>
+    <View style={styles.container}>
+      <View style={styles.categorycontainer}>
+        <View style={styles.categoryrowcontainer}>
+          <View style={styles.subcategorycontainer}>
+            <TouchableOpacity
+              style={styles.categorybutton}
+              onPress={() => {
+                console.log('Pending Orders button pressed!');
+              }}
+            >
+              <Text style={{ fontSize: 17, fontWeight: '500' }}>
+                Pending Orders
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.subcategorycontainer}>
+            <TouchableOpacity
+              style={styles.categorybutton}
+              onPress={() => {
+                console.log('Pending Orders button pressed!');
+              }}
+            >
+              <Text style={{ fontSize: 17, fontWeight: '500' }}>Filter</Text>
+            </TouchableOpacity>
           </View>
         </View>
-
-        <View style={styles.allrequestcontainer}>
-          <ScrollView>
-            <View>
-              <FulfillCard />
-            </View>
-            <View>
-              <FulfillCard />
-            </View>
-            <View>
-              <FulfillCard />
-            </View>
-            <View>
-              <FulfillCard />
-            </View>
-            <View>
-              <FulfillCard />
-            </View>
-            <View>
-              <FulfillCard />
-            </View>
-            <View>
-              <FulfillCard />
-            </View>
-            <View>
-              <FulfillCard />
-            </View>
-          </ScrollView>
-        </View>
       </View>
-    </SafeArea>
+
+      <View style={styles.allrequestcontainer}>
+        <ScrollView>
+          <View>
+            <FulfillCard />
+          </View>
+          <View>
+            <FulfillCard />
+          </View>
+          <View>
+            <FulfillCard />
+          </View>
+          <View>
+            <FulfillCard />
+          </View>
+          <View>
+            <FulfillCard />
+          </View>
+          <View>
+            <FulfillCard />
+          </View>
+          <View>
+            <FulfillCard />
+          </View>
+          <View>
+            <FulfillCard />
+          </View>
+        </ScrollView>
+      </View>
+    </View>
   );
 };
 
@@ -113,7 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
-    marginTop: 15,
+    marginTop: 18,
     padding: 10,
   },
 

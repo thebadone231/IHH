@@ -2,9 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
-import HomeStackScreen from '../Stack Navigation/HomeStackScreen';
-import ActivityStackScreen from '../Stack Navigation/ActivityStackScreen';
-import RequestStackScreen from '../Stack Navigation/RequestStackScreen';
+import ProfileStackScreen from '../Stack Navigation/ProfileStackScreen';
 import FulfillStackScreen from '../Stack Navigation/FulfillStackScreen';
 import OrderStackScreen from '../Stack Navigation/OrderStackScreen';
 
@@ -12,11 +10,9 @@ const Tab = createBottomTabNavigator();
 
 // icons for bottom tab navigator from expo vector-icons
 const TAB_ICON = {
-  Home: 'md-home',
-  Activity: 'md-time',
-  Request: 'md-add',
-  Fulfill: 'md-person',
-  Order: 'md-help',
+  Order: 'md-add',
+  Fulfill: 'md-restaurant',
+  Profile: 'md-person',
 };
 
 const createScreenOptions = ({ route }) => {
@@ -40,18 +36,8 @@ export const TabNavigator = () => (
   <Tab.Navigator screenOptions={createScreenOptions}>
     <Tab.Screen
       options={{ headerShown: false }}
-      name="Home"
-      component={HomeStackScreen}
-    />
-    <Tab.Screen
-      options={{ headerShown: false }}
-      name="Activity"
-      component={ActivityStackScreen}
-    />
-    <Tab.Screen
-      options={{ headerShown: false }}
-      name="Request"
-      component={RequestStackScreen}
+      name="Order"
+      component={OrderStackScreen}
     />
     <Tab.Screen
       options={{ headerShown: false }}
@@ -60,8 +46,8 @@ export const TabNavigator = () => (
     />
     <Tab.Screen
       options={{ headerShown: false }}
-      name="Order"
-      component={OrderStackScreen}
+      name="Profile"
+      component={ProfileStackScreen}
     />
   </Tab.Navigator>
 );
