@@ -17,6 +17,7 @@ import { auth } from '../../services/Firebase';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { AuthenticationContext } from '../../services/Firebase';
 
+
 const NewUser = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -70,8 +71,6 @@ const NewUser = ({ navigation }) => {
           lastName,
           userName,
           contactNumber,
-          homeAddress,
-          postalCode
         );
         if (auth.currentUser === null) {
           setFailureAlert(true);
@@ -215,35 +214,6 @@ const NewUser = ({ navigation }) => {
                 placeholderTextColor="grey"
                 keyboardType="number-pad"
                 returnKeyType="next"
-              />
-            </View>
-            <View style={styles.passwordContainer}>
-              <TextInput
-                style={styles.email}
-                defaultValue={homeAddress}
-                onChangeText={(homeAddress) => {
-                  setHomeAddress(homeAddress);
-                }}
-                textContentType="fullStreetAddress"
-                placeholder="Home Address"
-                placeholderTextColor="grey"
-                keyboardType="default"
-                returnKeyType="next"
-              />
-            </View>
-            <View style={styles.passwordContainer}>
-              <TextInput
-                style={styles.email}
-                defaultValue={postalCode}
-                onChangeText={(postalCode) => {
-                  setPostalCode(postalCode);
-                }}
-                textContentType="postalCode"
-                placeholder="Postal Code"
-                placeholderTextColor="grey"
-                keyboardType="number-pad"
-                returnKeyType="done"
-                maxLength={6}
               />
             </View>
             <Pressable style={styles.button} onPress={handleSubmit}>

@@ -7,6 +7,7 @@ import {
 import { getFirestore, collection, doc, setDoc } from '@firebase/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import firestore from '@firebase/firestore';
 import React, { useState, createContext } from 'react';
 import { FIREBASEAPIKEY } from './config.js';
 
@@ -63,8 +64,6 @@ export const AuthenticationContextProvider = ({ children }) => {
     lastName,
     userName,
     contactNumber,
-    homeAddress,
-    postalCode
   ) => {
     setIsLoading(true);
     await firebase
@@ -76,13 +75,10 @@ export const AuthenticationContextProvider = ({ children }) => {
         lastName,
         userName,
         contactNumber,
-        homeAddress,
-        postalCode
       )
       .then((u) => {
         setUser(u);
-        setIsLoading(false);
-        setDoc(doc(userCollectionRef, auth.currentUser.email), {
+        firebase.firestore().collection("users").add({
           userdata: {
             email: email,
             password: password,
@@ -90,13 +86,23 @@ export const AuthenticationContextProvider = ({ children }) => {
             lastName: lastName,
             userName: userName,
             contactNumber: contactNumber,
-            homeAddress: homeAddress,
-            postalCode: postalCode,
+          },
+          requests: {},
+        });
+        setIsLoading(false);
+        /*setDoc(doc(userCollectionRef, email), {
+          userdata: {
+            email: email,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+            userName: userName,
+            contactNumber: contactNumber,
           },
           requests: {},
           'plus-one': {},
           deliveries: {},
-        });
+        });*/
         console.log(firebase.auth().currentUser);
       })
       .catch((error) => {
