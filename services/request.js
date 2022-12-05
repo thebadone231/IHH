@@ -23,27 +23,38 @@ export const createRequest = async (
         orderNumber: orderNumber,
         collectionPlace: collectionPlace,
         deliveryPlace: deliveryPlace,
+        status: "Pending",
       }).then(() => console.log("test"));
   };
 
-  export const deleteRequest = async (
+  export const completeRequest = async (
     orderNumber,
-  ) => {
-    firebase.firestore().collection("Request")
-    .doc(orderNumber)
-    .delete();
-  };
-
-  export const updateRequest = async (
-    orderNumber,
-    collectionPlace,
-    deliveryPlace,
   ) => {
     firebase.firestore().collection("Request")
     .doc(orderNumber)
     .update({
-        orderNumber: orderNumber,
-        collectionPlace: collectionPlace,
-        deliveryPlace: deliveryPlace,
+      status: "Delivered"
+    });
+  };
+
+  export const collectRequest = async (
+    orderNumber
+  ) => {
+    firebase.firestore().collection("Request")
+    .doc(orderNumber)
+    .update({
+        status: "Collected"
       }).then(() => console.log("test"));
   };
+
+  export const getUnfulfilledRequests = async () => {
+    firebase.firestore().collection("Request").where('status', '==', "Pending").get();
+  }
+
+  export const getPendingRequests = async () => {
+    firebase.firestore().collection("Request").where('status', '!=', "Delivered").get();
+  }
+
+  export const getCompletedRequests = async () => {
+    firebase.firestore().collection("CompletedRequest").where('status', '==', "Delivered").get();
+  }
