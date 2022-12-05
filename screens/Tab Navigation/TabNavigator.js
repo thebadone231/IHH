@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeStackScreen from '../Stack Navigation/HomeStackScreen';
 import ActivityStackScreen from '../Stack Navigation/ActivityStackScreen';
 import RequestStackScreen from '../Stack Navigation/RequestStackScreen';
-import FulfillStackScreen from '../Stack Navigation/FulfillStackScreen';
+import ProfileStackScreen from '../Stack Navigation/ProfileStackScreen';
 import FAQStackScreen from '../Stack Navigation/FAQStackScreen';
 
 const Tab = createBottomTabNavigator();
@@ -16,7 +16,7 @@ const TAB_ICON = {
   Activity: 'md-time',
   Request: 'md-add',
   Fulfill: 'md-person',
-  FAQ: 'md-help',
+  Order: 'md-help',
 };
 
 const createScreenOptions = ({ route }) => {
@@ -60,8 +60,8 @@ export const TabNavigator = () => (
     />
     <Tab.Screen
       options={{ headerShown: false }}
-      name="FAQ"
-      component={FAQStackScreen}
+      name="Order"
+      component={OrderStackScreen}
     />
   </Tab.Navigator>
 );
