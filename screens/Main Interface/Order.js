@@ -18,7 +18,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Geocoder from 'react-native-geocoding';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { createRequest } from '../../services/request';
+import {
+  createRequest,
+  getUserPendingRequests,
+  getUserCompletedRequests,
+} from '../../services/request';
+import OrderCard from './OrderCardComponent';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const OrderScreen = () => {
   //const [requestData, setRequestData] = useState({});
@@ -29,7 +35,9 @@ const OrderScreen = () => {
 
   // for Collection Location dropdown list
   const [openCollectionLocation, setOpenCollectionLocation] = useState(false);
-  const [valueCollectionLocation, setValueCollectionLocation] = useState(valueCollectionLocation);
+  const [valueCollectionLocation, setValueCollectionLocation] = useState(
+    valueCollectionLocation
+  );
   const [itemsCollectionLocation, setItemsCollectionLocation] = useState([
     { label: 'PGP', value: 'PGP' },
     { label: 'Frontier (non AC)', value: 'Frontier (non AC)' },
@@ -41,7 +49,9 @@ const OrderScreen = () => {
 
   // for Delivery Location dropdown list
   const [openDeliveryLocation, setOpenDeliveryLocation] = useState(false);
-  const [valueDeliveryLocation, setValueDeliveryLocation] = useState(valueDeliveryLocation);
+  const [valueDeliveryLocation, setValueDeliveryLocation] = useState(
+    valueDeliveryLocation
+  );
   const [itemsDeliveryLocation, setItemsDeliveryLocation] = useState([
     { label: 'KE7 foyer', value: 'KE7 foyer' },
     { label: 'PGP bus stop', value: 'PGP bus stop' },
@@ -100,6 +110,57 @@ const OrderScreen = () => {
       )
       .catch(console.error);
   };
+
+  // for storing of QuerySnapshot
+  const [pendingRequestQuery, setPendingRequestQuery] = useState(null);
+
+  // to check if requests have loaded
+  const [isPendingRequestLoaded, setIsPendingRequestLoaded] = useState(false);
+
+  // for storing of QuerySnapshot
+  const [completedRequestQuery, setCompletedRequestQuery] = useState(null);
+
+  // to check if requests have loaded
+  const [isCompletedRequestLoaded, setIsCompletedRequestLoaded] =
+    useState(false);
+
+  // to fetch request info
+  useEffect(() => {
+    const getPendingRequestData = async () => {
+      const pendingRequestDatabase = await getUserPendingRequests();
+      var pendingRequestArray = [];
+      pendingRequestDatabase.forEach((doc) => {
+        console.log(doc);
+        pendingRequestArray.push({
+          collectionPlace: doc.data()['collectionPlace'],
+          deliveryPlace: doc.data()['deliveryPlace'],
+          orderNumber: doc.data()['orderNumber'],
+          status: doc.data()['status'],
+        });
+      });
+      setPendingRequestQuery(pendingRequestArray);
+      setIsPendingRequestLoaded(true);
+    };
+
+    const getCompletedRequestData = async () => {
+      const completedRequestDatabase = await getUserCompletedRequests();
+      var completedRequestArray = [];
+      completedRequestDatabase.forEach((doc) => {
+        console.log(doc);
+        completedRequestArray.push({
+          collectionPlace: doc.data()['collectionPlace'],
+          deliveryPlace: doc.data()['deliveryPlace'],
+          orderNumber: doc.data()['orderNumber'],
+          status: doc.data()['status'],
+        });
+      });
+      setCompletedRequestQuery(completedRequestArray);
+      setIsCompletedRequestLoaded(true);
+    };
+
+    getPendingRequestData();
+    getCompletedRequestData();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -179,30 +240,76 @@ const OrderScreen = () => {
 
       <View style={styles.buttons}>
         <Button
-          onPress={ async () => {
-            await createRequest(text, valueCollectionLocation, valueDeliveryLocation)
-            Alert.alert('Order successful')
+          onPress={async () => {
+            await createRequest(
+              text,
+              valueCollectionLocation,
+              valueDeliveryLocation
+            );
+            Alert.alert('Order successful');
           }}
           title="Submit Order"
           color="#11CC28"
           accessibilityLabel="Learn more about this purple button"
         />
       </View>
-      <View style={styles.buttons}>
-        <Button
-          onPress={() => Alert.alert('Pending orders')}
-          title="Pending Orders"
-          color="#B1B2BB"
-          accessibilityLabel="Learn more about this purple button"
-        />
-      </View>
-      <View style={styles.buttons}>
-        <Button
-          onPress={() => Alert.alert('Your past orders')}
-          title="Past Orders"
-          color="#B1B2BB"
-          accessibilityLabel="Learn more about this purple button"
-        />
+      <View style={styles.allorderscontainer}>
+        <View style={styles.orderscontainer}>
+          <View style={styles.subheadercontainer}>
+            <Text style={styles.header}>Pending Orders</Text>
+          </View>
+          <View style={styles.suborderscontainer}>
+            <ScrollView>
+              {isPendingRequestLoaded ? (
+                pendingRequestQuery.length > 0 ? (
+                  pendingRequestQuery.map((doc) => {
+                    return (
+                      <View>
+                        <OrderCard order={doc} />
+                      </View>
+                    );
+                  })
+                ) : (
+                  <View style={styles.message}>
+                    <Text>No Pending Orders</Text>
+                  </View>
+                )
+              ) : (
+                <View>
+                  <Text>Loading...</Text>
+                </View>
+              )}
+            </ScrollView>
+          </View>
+        </View>
+        <View style={styles.orderscontainer}>
+          <View style={styles.subheadercontainer}>
+            <Text style={styles.header}>Past Orders</Text>
+          </View>
+          <View style={styles.suborderscontainer}>
+            <ScrollView>
+              {isCompletedRequestLoaded ? (
+                completedRequestQuery.length > 0 ? (
+                  completedRequestQuery.map((doc) => {
+                    return (
+                      <View>
+                        <OrderCard order={doc} />
+                      </View>
+                    );
+                  })
+                ) : (
+                  <View style={styles.message}>
+                    <Text>No Past Orders</Text>
+                  </View>
+                )
+              ) : (
+                <View>
+                  <Text>Loading...</Text>
+                </View>
+              )}
+            </ScrollView>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -224,7 +331,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    height: 44,
     width: '95%',
     marginVertical: 6,
     marginLeft: 3,
@@ -233,8 +339,8 @@ const styles = StyleSheet.create({
   headline: {
     textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 48,
-    marginTop: 10,
+    fontSize: 32,
+    marginTop: 30,
     width: '100%',
   },
 
@@ -257,10 +363,9 @@ const styles = StyleSheet.create({
 
   buttons: {
     flex: 1,
-    height: '77%',
-    width: '90%',
     borderRadius: 5,
     alignItems: 'center',
+    marginTop: 10,
   },
 
   submit_container: {
@@ -271,6 +376,35 @@ const styles = StyleSheet.create({
     width: 310,
     marginVertical: 6,
     backgroundColor: '#A1B2AA',
+  },
+
+  allorderscontainer: {
+    flex: 5,
+    marginTop: -40,
+  },
+
+  orderscontainer: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 10,
+  },
+
+  subheadercontainer: {
+    flex: 1,
+  },
+
+  suborderscontainer: {
+    flex: 4,
+  },
+
+  header: {
+    fontSize: 17,
+  },
+
+  message: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

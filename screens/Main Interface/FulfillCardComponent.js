@@ -1,8 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, Image, View, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  Text,
+  Image,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from 'react-native';
 import { Card } from 'react-native-paper';
 import { doc, getDoc, setDoc, addDoc, collection } from 'firebase/firestore';
 import { db, auth, AuthenticationContext } from '../../services/Firebase';
+import { completeRequest } from '../../services/request.js';
+import { collectRequest } from '../../services/request.js';
 
 const FulfillCard = ({ fulfill = {}, navigation }) => {
   //   const [requestdata, setRequestData] = useState([]);
@@ -27,16 +36,17 @@ const FulfillCard = ({ fulfill = {}, navigation }) => {
   // default dummy data
   const {
     orderNumber = 'CM187-T',
-    collectionLocation = 'PGP Canteen',
-    deliveryLocation = 'KE7 Hall',
+    collectionPlace = 'PGP Canteen',
+    deliveryPlace = 'KE7 Hall',
+    status = 'Pending',
   } = fulfill;
 
   return (
     <Card elevation={5} style={styles.card}>
       <View style={styles.ordernumbercontainer}>
         <Text>{orderNumber}</Text>
-        <Text>Collection Location: {collectionLocation}</Text>
-        <Text>Delivery Location: {deliveryLocation}</Text>
+        <Text>Collection Location: {collectionPlace}</Text>
+        <Text>Delivery Location: {deliveryPlace}</Text>
       </View>
       <View style={styles.buttonrowcontainer}>
         <View style={styles.buttoncontainer}>
@@ -44,6 +54,8 @@ const FulfillCard = ({ fulfill = {}, navigation }) => {
             style={styles.button}
             onPress={() => {
               console.log('Collect now button pressed!');
+              collectRequest(orderNumber);
+              Alert.alert('You may proceed to collect the order now');
             }}
           >
             <Text>Collect now</Text>
@@ -55,6 +67,8 @@ const FulfillCard = ({ fulfill = {}, navigation }) => {
               style={styles.button}
               onPress={() => {
                 console.log('Delivered now button pressed!');
+                completeRequest(orderNumber);
+                Alert.alert('Thank you for your service!');
               }}
             >
               <Text>Delivered</Text>

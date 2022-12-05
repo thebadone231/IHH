@@ -19,8 +19,37 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import FulfillCard from './FulfillCardComponent';
 import { ScrollView } from 'react-native-gesture-handler';
+import { getUnfulfilledRequests } from '../../services/request.js';
+import { completeRequest } from '../../services/request.js';
+import { collectRequest } from '../../services/request.js';
 
 const FulfillScreen = () => {
+  // for storing of QuerySnapshot
+  const [requestQuery, setRequestQuery] = useState(null);
+
+  // to check if requests have loaded
+  const [isRequestLoaded, setIsRequestLoaded] = useState(false);
+
+  // to fetch request info
+  useEffect(() => {
+    const getRequestData = async () => {
+      const requestDatabase = await getUnfulfilledRequests();
+      var requestArray = [];
+      requestDatabase.forEach((doc) => {
+        requestArray.push({
+          collectionPlace: doc.data()['collectionPlace'],
+          deliveryPlace: doc.data()['deliveryPlace'],
+          orderNumber: doc.data()['orderNumber'],
+          status: doc.data()['status'],
+        });
+      });
+      setRequestQuery(requestArray);
+      setIsRequestLoaded(true);
+    };
+
+    getRequestData();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.categorycontainer}>
@@ -52,30 +81,19 @@ const FulfillScreen = () => {
 
       <View style={styles.allrequestcontainer}>
         <ScrollView>
-          <View>
-            <FulfillCard />
-          </View>
-          <View>
-            <FulfillCard />
-          </View>
-          <View>
-            <FulfillCard />
-          </View>
-          <View>
-            <FulfillCard />
-          </View>
-          <View>
-            <FulfillCard />
-          </View>
-          <View>
-            <FulfillCard />
-          </View>
-          <View>
-            <FulfillCard />
-          </View>
-          <View>
-            <FulfillCard />
-          </View>
+          {isRequestLoaded ? (
+            requestQuery.map((doc) => {
+              return (
+                <View>
+                  <FulfillCard fulfill={doc} />
+                </View>
+              );
+            })
+          ) : (
+            <View>
+              <Text>Loading...</Text>
+            </View>
+          )}
         </ScrollView>
       </View>
     </View>
@@ -91,6 +109,7 @@ const styles = StyleSheet.create({
   categorycontainer: {
     flex: 1,
     backgroundColor: '#D5DDF9',
+    marginTop: 40,
   },
 
   categoryrowcontainer: {

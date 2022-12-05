@@ -63,7 +63,7 @@ export const AuthenticationContextProvider = ({ children }) => {
     firstName,
     lastName,
     userName,
-    contactNumber,
+    contactNumber
   ) => {
     setIsLoading(true);
     await firebase
@@ -74,21 +74,24 @@ export const AuthenticationContextProvider = ({ children }) => {
         firstName,
         lastName,
         userName,
-        contactNumber,
+        contactNumber
       )
       .then((u) => {
         setUser(u);
-        firebase.firestore().collection("users").add({
-          userdata: {
-            email: email,
-            password: password,
-            firstName: firstName,
-            lastName: lastName,
-            userName: userName,
-            contactNumber: contactNumber,
-          },
-          requests: {},
-        });
+        firebase
+          .firestore()
+          .collection('users')
+          .add({
+            userdata: {
+              email: email,
+              password: password,
+              firstName: firstName,
+              lastName: lastName,
+              userName: userName,
+              contactNumber: contactNumber,
+            },
+            requests: {},
+          });
         setIsLoading(false);
         /*setDoc(doc(userCollectionRef, email), {
           userdata: {
