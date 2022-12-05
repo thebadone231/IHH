@@ -5,8 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeStackScreen from '../Stack Navigation/HomeStackScreen';
 import ActivityStackScreen from '../Stack Navigation/ActivityStackScreen';
 import RequestStackScreen from '../Stack Navigation/RequestStackScreen';
-import ProfileStackScreen from '../Stack Navigation/ProfileStackScreen';
-import FAQStackScreen from '../Stack Navigation/FAQStackScreen';
+import FulfillStackScreen from '../Stack Navigation/FulfillStackScreen';
+import OrderStackScreen from '../Stack Navigation/OrderStackScreen';
 
 const Tab = createBottomTabNavigator();
 
