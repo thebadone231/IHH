@@ -20,8 +20,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import FulfillCard from './FulfillCardComponent';
 import { ScrollView } from 'react-native-gesture-handler';
 import { getUnfulfilledRequests } from '../../services/request.js';
-import { completeRequest } from '../../services/request.js';
-import { collectRequest } from '../../services/request.js';
 
 const FulfillScreen = () => {
   // for storing of QuerySnapshot
