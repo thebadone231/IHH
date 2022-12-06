@@ -6,10 +6,10 @@
 ![image](https://user-images.githubusercontent.com/97509680/205794004-12ac76b1-f45b-4cc1-8f9d-1128ed72fc9d.png)
 #### Create Account page
 ![image](https://user-images.githubusercontent.com/97509680/205794201-6e18d966-2086-4d63-81c2-2c3a75c95e2a.png)
-#### Order page
-![image](https://user-images.githubusercontent.com/97509680/205794246-d577a470-06a7-454c-bf4d-3ef26e768170.png)
+#### Place order page
+![image](https://user-images.githubusercontent.com/97509680/205798587-1428eeb5-fbd4-432c-b721-02c9e7404f1a.png) ![image](https://user-images.githubusercontent.com/97509680/205798677-bf1ed5f1-9da2-4cd1-a6a9-f795624907f4.png)
 #### Fulfill orders page
-![image](https://user-images.githubusercontent.com/97509680/205794287-25444a65-e9f6-4578-b79f-9b5876ea9291.png)
+![image](https://user-images.githubusercontent.com/97509680/205798770-99fcc2cb-494a-464b-9cee-bf7ed17e7deb.png)
 #### Profile page
 ![image](https://user-images.githubusercontent.com/97509680/205794305-95306952-03c6-4e46-8643-fa95ac54b104.png)
 #### QR code for app
