@@ -120,8 +120,6 @@ export const AuthenticationContextProvider = ({ children }) => {
       .auth()
       .signOut()
       .then(() => {
-        setUser(null);
-        setError(null);
         console.log('Signed Out');
       })
       .catch((error) => {
@@ -161,6 +159,19 @@ export const AuthenticationContextProvider = ({ children }) => {
       {children}
     </AuthenticationContext.Provider>
   );
+};
+
+export const signout = async () => {
+  await firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      console.log('Signed Out');
+    })
+    .catch((error) => {
+      setError(error.toString());
+      console.error(error);
+    });
 };
 
 /* database structuring:

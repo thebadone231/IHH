@@ -53,8 +53,8 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.background}>
-      <View style={{ right: 11 }}>
-        <Text style={[styles.mainLogo, { left: 8 }]}> +1 </Text>
+      <View style={{ right: 11, padding: 10 }}>
+        <Text style={[styles.mainLogo, { left: 8 }]}> GrabbedFood </Text>
       </View>
 
       <View style={{ marginTop: 5, marginBottom: 14, left: 25 }}>
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   },
 
   mainLogo: {
-    fontSize: 50,
+    fontSize: 40,
     fontWeight: '800',
   },
 

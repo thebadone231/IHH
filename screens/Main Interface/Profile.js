@@ -15,12 +15,13 @@ import { updatePassword, updateEmail } from 'firebase/auth';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { AuthenticationContext } from '../../services/Firebase';
+import { signout } from '../../services/Firebase';
 
 const ProfileScreen = ({ navigation }) => {
   const [text, onChangeText] = React.useState('');
   return (
     <View style={styles.container}>
-      <View>
+      <View style={{ padding: 20 }}>
         <Text style={styles.headline}> Profile </Text>
       </View>
 
@@ -66,6 +67,31 @@ const ProfileScreen = ({ navigation }) => {
             onChangeText={onChangeText}
             value={text}
           />
+        </View>
+      </View>
+      <View style={styles.bottomcontainer}>
+        <View style={styles.bottombuttoncontainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              console.log('Update profile button pressed!');
+              Alert.alert('Profile updated!');
+            }}
+          >
+            <Text>Update</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.bottombuttoncontainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              console.log('Logout button pressed!');
+              signout();
+              navigation.navigate('LoginScreen');
+            }}
+          >
+            <Text>Logout</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -123,8 +149,8 @@ const styles = StyleSheet.create({
   },
 
   findIcon: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
     alignSelf: 'center',
   },
 
@@ -144,6 +170,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+  },
+
+  bottomcontainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+
+  bottombuttoncontainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  button: {
+    backgroundColor: '#735e7d',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    marginTop: 15,
+    padding: 15,
   },
 });
 
