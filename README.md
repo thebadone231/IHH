@@ -25,9 +25,9 @@ Meanwhile, Fulfillers are students who actually go down to a particular food loc
 The profile page allows for students to set up their profile. Students with the profiles can start using the app, either as Orderers or Fulfillers (depending on their mood!).
 
 ## How we built it
-ReactNative
-Firebase
-Javascript
+* ReactNative
+* Firebase
+* Javascript
 
 ## Challenges we ran into
 The integration of backend and frontend can be quite challenging in such a short span of time because we have to work on the new features simultaneously.
@@ -52,5 +52,6 @@ Maybe the Orderers decide to be hardworking enough to get their food if they are
 More refinement for profile pages, ordering history and filter, order management, authentication features and User Interface changes.
 
 ## Built With
-firebase
-reactnative
+<img src="https://user-images.githubusercontent.com/97509680/205794815-3542e4e5-2937-4130-96fc-d4ab338236b2.png" alt="Firebase" width="200"/>
+<img src="https://user-images.githubusercontent.com/97509680/205794898-20a98ac2-351f-4a76-9de4-3c687678943f.png" alt="React Native" width="200"/>
+
