@@ -35,7 +35,7 @@ const ForgotPassword = ({ navigation }) => {
                 source={require('../../assets/backButton.png')}
               />
             </TouchableOpacity>
-            <Text style={styles.mainLogo}> +1 </Text>
+            <Text style={styles.mainLogo}> GrabbedFood </Text>
           </View>
           <View style={styles.headerContainer}>
             <Text
@@ -92,8 +92,8 @@ const ForgotPassword = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   mainLogo: {
-    marginLeft: 90,
-    fontSize: 50,
+    marginLeft: 40,
+    fontSize: 30,
     fontWeight: '800',
   },
   logoContainer: {
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '50%',
     flexDirection: 'row',
+    marginBottom: 10,
   },
   container: {
     flex: 1,
